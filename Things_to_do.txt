@@ -1,0 +1,8 @@
+Things to do:
+
+create the physics game with pygame 
+
+create the physics engine 
+
+Add creating a graph module as well 
+
