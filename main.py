@@ -72,8 +72,8 @@ class Body:
             air = 1 if settings[0] else 0
             gravity = 1 if settings[1] else 0
 
-        velocity_j = float(velocity_j) if velocity_j != "" else 0.0
         initial_velocity = float(initial_velocity)
+        velocity_j = float(velocity_j) if velocity_j != "" else initial_velocity
 
         net = (
             force_j
@@ -89,8 +89,8 @@ class Body:
         if settings and isinstance(settings, list):
             air = 1 if settings[0] else 0
 
-        velocity_i = float(velocity_i) if velocity_i != "" else 0.0
         initial_velocity = float(initial_velocity)
+        velocity_i = float(velocity_i) if velocity_i != "" else initial_velocity
 
         net = (
             force_i
@@ -230,6 +230,14 @@ def set_bodies(obj):
     if obj:
         return [Body(i) for i in obj]
     return None
+def pass_time(bodies):
+    a=[]
+    for body in bodies:
+        for _ in range(1000):
+            body.pass_time()
+            dic={body.name:body.coordinate}
+            a.append(dic)
+        return a                    
 
 def main():
     while True:
@@ -238,10 +246,9 @@ def main():
         if app.visual:
             unpack_settings(app.settings)
             bodies = set_bodies(app.objects)
-            for body in bodies:
-                for _ in range(1000):
-                    body.pass_time()
-                    print(body.coordinate)
+            a=pass_time(bodies)
+            print(a)
+            
         elif app.graph:
             # For creating the graph of the object's arrtibutes
             objects = app.objects
